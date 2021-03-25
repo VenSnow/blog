@@ -23,7 +23,7 @@ class LoginController extends Controller
             return back()->with('status', 'Неверный логин или пароль');
         }
 
-        return redirect()->route('home');
+        return redirect()->back();
 
     }
 }

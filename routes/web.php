@@ -27,6 +27,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 Route::post('/posts/{post}/like', [PostLikeController::class, 'store'])->name('posts.likes');
 Route::delete('/posts/{post}/like', [PostLikeController::class, 'destroy']);

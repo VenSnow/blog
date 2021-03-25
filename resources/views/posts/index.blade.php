@@ -12,7 +12,7 @@
                     @foreach($posts as $post)
                         <div class="mb-5">
                             <hr>
-                            <p class="my-3 text-lg font-medium">{{ $post->title }}</p>
+                            <a href="{{ route('posts.show', $post) }}" class="my-3 text-lg font-medium">{{ $post->title }}</a>
                             <p>{{ Str::words($post->content, 35, ' ...') }}</p>
                             <p class="mt-2">Автор: {{ $post->user->username }}</p>
                             <div class="flex mt-3">
@@ -22,19 +22,19 @@
                                             @csrf
                                             <button type="submit"><i class="far fa-heart"></i> {{ $post->likes->count() }}</button>
                                         </form>
-                                        <p class="mr-3"><i class="far fa-comment-alt"></i> 13</p>
+                                        <p class="mr-3"><i class="far fa-comment-alt"></i> {{ $post->comments->count() }}</p>
                                     @else
                                         <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-3">
                                             @method('DELETE')
                                             @csrf
                                             <button type="submit"><i class="fas fa-heart text-red-500"></i> {{ $post->likes->count() }}</button>
                                         </form>
-                                        <p class="mr-3"><i class="far fa-comment-alt"></i> 13</p>
+                                        <p class="mr-3"><i class="far fa-comment-alt"></i> {{ $post->comments->count() }}</p>
                                     @endif
                                 @endauth
                                 @guest
                                     <p class="mr-3"><i class="far fa-heart"></i> {{ $post->likes->count() }}</p>
-                                    <p class="mr-3"><i class="far fa-comment-alt"></i> 13</p>
+                                    <p class="mr-3"><i class="far fa-comment-alt"></i> {{ $post->comments->count() }}</p>
                                 @endguest
                             </div>
                         </div>
