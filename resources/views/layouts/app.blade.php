@@ -21,15 +21,28 @@
             </li>
         </ul>
         <ul class="flex items-center">
-            <li>
-                <a href="#" class="p-3">Админ Панель</a>
-            </li>
-            <li>
-                <a href="#" class="p-3">Имя Юзера</a>
-            </li>
-            <li>
-                <a href="#" class="p-3">Выход</a>
-            </li>
+            @auth()
+                <li>
+                    <a href="#" class="p-3">Админ Панель</a>
+                </li>
+                <li>
+                    <a href="#" class="p-3">{{ auth()->user()->username }}</a>
+                </li>
+                <li>
+                    <form action="{{ route('logout') }}" method="post" class="p-3 inline">
+                        @csrf
+                        <button type="submit">Выход</button>
+                    </form>
+                </li>
+            @endauth
+            @guest()
+                <li>
+                    <a href="{{ route('login') }}" class="p-3">Войти <i class="fas fa-sign-in-alt"></i></a>
+                </li>
+                <li>
+                    <a href="{{ route('register') }}" class="p-3">Регистрация</a>
+                </li>
+            @endguest
         </ul>
     </nav>
 </header>

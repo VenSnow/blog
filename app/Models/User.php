@@ -46,4 +46,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    public function isAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function recivedLikes()
+    {
+        return $this->hasManyThrough(Like::class, Post::class);
+    }
 }

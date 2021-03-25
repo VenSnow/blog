@@ -8,16 +8,42 @@
                 <span class="font-bold text-xl m-4">Learning Blog</span>
             </div>
             <div class="flex-col">
-                <div class="mb-5">
+                @if($posts->count())
+                    @foreach($posts as $post)
+                        <div class="mb-5">
+                            <hr>
+                            <p class="my-3 text-lg font-medium">{{ $post->title }}</p>
+                            <p>{{ Str::words($post->content, 35, ' ...') }}</p>
+                            <p class="mt-2">Автор: {{ $post->user->username }}</p>
+                            <div class="flex mt-3">
+                                @auth
+                                    @if(!$post->likedBy(auth()->user()))
+                                        <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-3">
+                                            @csrf
+                                            <button type="submit"><i class="far fa-heart"></i> {{ $post->likes->count() }}</button>
+                                        </form>
+                                        <p class="mr-3"><i class="far fa-comment-alt"></i> 13</p>
+                                    @else
+                                        <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-3">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit"><i class="fas fa-heart text-red-500"></i> {{ $post->likes->count() }}</button>
+                                        </form>
+                                        <p class="mr-3"><i class="far fa-comment-alt"></i> 13</p>
+                                    @endif
+                                @endauth
+                                @guest
+                                    <p class="mr-3"><i class="far fa-heart"></i> {{ $post->likes->count() }}</p>
+                                    <p class="mr-3"><i class="far fa-comment-alt"></i> 13</p>
+                                @endguest
+                            </div>
+                        </div>
+                    @endforeach
                     <hr>
-                    <p class="my-3 text-lg font-medium">Title</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid consectetur deserunt dignissimos distinctio earum, esse explicabo inventore molestias non, nostrum pariatur perspiciatis quas quasi, reprehenderit saepe sit tenetur. Ad animi architecto asperiores consequatur consequuntur cupiditate deserunt dignissimos dolore, dolorum eaque est eveniet ex exercitationem fugiat fugit harum id ipsa ipsam iure labore laborum, modi nemo nihil praesentium qui quod suscipit, tempore tenetur voluptates voluptatibus? Ab accusamus accusantium alias consectetur cumque doloremque, eos et exercitationem facere illum incidunt inventore ipsa ipsum laboriosam magni maxime molestias mollitia nam nesciunt non nostrum, numquam odio omnis perferendis perspiciatis praesentium quia quo recusandae reiciendis repellendus repudiandae sunt temporibus ullam! Aspernatur atque dolore doloribus eaque esse tenetur voluptas! Aliquam at consequuntur dicta eaque eveniet facere harum ipsum quidem reprehenderit sint. A animi cum, cupiditate debitis deleniti distinctio enim eum expedita fugiat in labore laborum minus quasi qui sit unde vero voluptatibus! Aliquid odio quod repellat vitae!</p>
-                    <p class="mt-2">Автор: Юзернейм</p>
-                    <div class="flex mt-3">
-                        <p class="mr-3"><i class="far fa-heart"></i> 52</p>
-                        <p class="mr-3"><i class="far fa-comment-alt"></i> 13</p>
-                    </div>
-                </div>
+                    {{ $posts->links() }}
+                @else
+                    <p>Постов пока что нет <i>:(</i></p>
+                @endif
             </div>
         </div>
     </div>
