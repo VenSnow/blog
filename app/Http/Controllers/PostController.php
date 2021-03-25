@@ -9,15 +9,16 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index() {
-        $posts = Post::with('user')->latest()->paginate(15);
+        $posts = Post::with('user', 'likes', 'comments')->latest()->paginate(15);
         return view('posts.index', [
            'posts' => $posts
         ]);
     }
 
-    public function show(Post $post, Comment $comment)
+    public function show(Post $post)
     {
-        $comments = Comment::with('user')->latest()->paginate(20);
+        $comments = $post->comments()->with('user')->latest()->paginate(20);
+
         return view('posts.show', [
             'post' => $post,
             'comments' => $comments,

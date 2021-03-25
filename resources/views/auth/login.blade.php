@@ -9,7 +9,7 @@
                     {{ session('status') }}
                 </div>
             @endif
-            <form action="" method="post">
+            <form action="{{ route('login') }}" method="post">
                 @csrf
                 <div class="mb-4">
                     <label for="username" class="sr-only">Логин</label>

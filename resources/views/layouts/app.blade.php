@@ -14,7 +14,7 @@
     <nav class="p-6 bg-white flex justify-between mb-6">
         <ul class="flex items-center">
             <li>
-                <a href="#" class="p-3">Главная</a>
+                <a href="{{ route('home') }}" class="p-3">Главная</a>
             </li>
             <li>
                 <a href="#" class="p-3">Контакты</a>
@@ -23,7 +23,7 @@
         <ul class="flex items-center">
             @auth()
                 <li>
-                    <a href="#" class="p-3">Админ Панель</a>
+                    <a href="{{ route('admin.index') }}" class="p-3">Админ Панель</a>
                 </li>
                 <li>
                     <a href="#" class="p-3">{{ auth()->user()->username }}</a>

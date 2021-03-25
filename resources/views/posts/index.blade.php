@@ -13,7 +13,7 @@
                         <div class="mb-5">
                             <hr>
                             <a href="{{ route('posts.show', $post) }}" class="my-3 text-lg font-medium">{{ $post->title }}</a>
-                            <p>{{ Str::words($post->content, 35, ' ...') }}</p>
+                            <p class="mt-2">{{ Str::words($post->content, 35, ' ...') }}</p>
                             <p class="mt-2">Автор: {{ $post->user->username }}</p>
                             <div class="flex mt-3">
                                 @auth
