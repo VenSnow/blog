@@ -24,4 +24,16 @@ class PostController extends Controller
             'comments' => $comments,
         ]);
     }
+
+    public function destroy(Post $post)
+    {
+        if(!auth()->user()->isAdmin())
+        {
+            return response(null, 409);
+        }
+
+        $post->delete();
+
+        return redirect(route('home'));
+    }
 }

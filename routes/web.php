@@ -30,8 +30,10 @@ Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
+Route::delete('/posts/{post:slug}/delete', [PostController::class, 'destroy'])->middleware('auth')->name('posts.delete');
 
 Route::post('posts/{post:slug}/add_comment', [PostCommentController::class, 'store'])->middleware('auth')->name('posts.comments');
+Route::delete('posts/post:slug/{comment:id}]', [PostCommentController::class, 'destroy'])->middleware('auth')->name('posts.comments.delete');
 
 Route::post('/posts/{post:slug}/like', [PostLikeController::class, 'store'])->middleware('auth')->name('posts.likes');
 Route::delete('/posts/{post:slug}/like', [PostLikeController::class, 'destroy']);

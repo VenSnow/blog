@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostCommentController extends Controller
@@ -20,6 +22,16 @@ class PostCommentController extends Controller
         ]);
 
         return back();
+    }
 
+    public function destroy(Comment $comment)
+    {
+        if(!auth()->user()->isAdmin()) {
+            return response(null,  409);
+        }
+
+        $comment->delete();
+
+        return back();
     }
 }

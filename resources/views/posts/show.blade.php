@@ -16,7 +16,7 @@
             <hr class="mb-2">
             @auth
                 @if(auth()->user()->isAdmin())
-                    <form action="" method="post">
+                    <form action="{{ route('posts.delete', $post) }}" method="post">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="mt-2 px-4 py-2 rounded bg-red-500 text-white font-medium">Удалить</button>
@@ -76,6 +76,15 @@
                             <p class="mt-3">
                                 {{ $comment->body }}
                             </p>
+                            @auth
+                                @if(auth()->user()->isAdmin())
+                                    <form action="{{ route('posts.comments.delete', $comment->id) }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="text-red-500">Удалить</button>
+                                    </form>
+                                @endif
+                            @endauth
                         </div>
                         <hr class="my-3">
                     @endforeach
