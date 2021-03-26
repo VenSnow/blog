@@ -22,9 +22,11 @@
         </ul>
         <ul class="flex items-center">
             @auth()
-                <li>
-                    <a href="{{ route('admin.index') }}" class="p-3">Админ Панель</a>
-                </li>
+                @if(auth()->user()->isAdmin())
+                    <li>
+                        <a href="{{ route('admin.index') }}" class="p-3">Админ Панель</a>
+                    </li>
+                @endif
                 <li>
                     <a href="#" class="p-3">{{ auth()->user()->username }}</a>
                 </li>
